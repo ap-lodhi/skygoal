@@ -1,10 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 const connectDb = require("./database/db");
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+// const swaggerJsDoc = require("swagger-jsdoc");
+// const swaggerUi = require("swagger-ui-express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+
+const { registerUser, loginUser, userDetails, addBlog } = require("./controllers/user");
+const { requiredAuth } = require("./middleware/authMiddleware");
 
 const app = express();
 app.use(express.json());
@@ -12,9 +15,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 const PORT = process.env.PORT || 8080;
 
-
-const { registerUser, loginUser, userDetails, addBlog } = require("./controllers/user");
-const { requiredAuth } = require("./middleware/authMiddleware");
 
 
 app.get("/",(req,res)=>{
